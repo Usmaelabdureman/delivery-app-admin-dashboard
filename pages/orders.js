@@ -9,6 +9,14 @@ export default function OrdersPage() {
       setOrders(response.data);
     });
   }, []);
+  if (orders.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <h1 className="text-3xl">Currently there are no orders</h1>
+      </div>
+    );
+  }
+  
   return (
     <Layout>
       <h1>Orders</h1>
