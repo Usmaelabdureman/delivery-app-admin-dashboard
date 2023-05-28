@@ -11,7 +11,7 @@ export default function Layout({children}) {
       <div className="bg-bgGray w-screen h-screen flex items-center">
         <div className="text-center w-full">
           <h1 className="text-3xl font-bold">Welcome to Delivery App  Admin Dashboard</h1>
-          <button onClick={() => signIn('google')} className="bg-white p-2 px-4 rounded-lg">Login with Google</button>
+          <button onClick={() => signIn('google')} className="bg-blue-500 hover:bg-blue-700 text-white font-bold p-2 px-4 rounded-lg">Login with Google</button>
         </div>
       </div>
     );
