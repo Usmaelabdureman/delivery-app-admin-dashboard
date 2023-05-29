@@ -12,23 +12,27 @@ export default function Layout({ children }) {
   if (!session) {
     return (
       <div className="bg-slate-800 min-h-screen flex items-center justify-center">
-        <div className="">
+        <div className="text-center">
           <h1 className="text-3xl font-bold text-white mb-4">Welcome to Delivery App Admin Dashboard</h1>
-          <h2 className="text-xl m-3 text-teal-500 ">Please login to Access the dashboard</h2>
-          <button
+          <h2 className="text-xl m-3 text-teal-500">Please login to Access the dashboard</h2>
+        <div className="flex items-center">
+        <button
             onClick={() => signIn("google")}
-            className="bg-teal-400 row flex justify-center ml-10 items-center text-gray-800 px-6 py-3 rounded-lg  shadow-md hover:bg-gray-200 transition-colors duration-300"
+            className="bg-teal-400 flex items-center text-gray-800 px-6 py-3 rounded-lg shadow-md hover:bg-gray-200 transition-colors duration-300"
           >
-           <FcGoogle className="mt-1 text-2xl"/> <span className='ml-3'>Sign In with Google</span>
+            <FcGoogle className="mt-1 text-2xl" /> <span className="ml-3">Sign In with Google</span>
           </button>
+
         </div>
       </div>
+      </div>
     );
+    
   }
 
   return (
     <div className="bg-bgGray min-h-screen">
-      <div className="block md:hidden flex items-center p-4">
+      <div className="md:hidden flex items-center p-4">
         <button onClick={() => setShowNav(true)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
