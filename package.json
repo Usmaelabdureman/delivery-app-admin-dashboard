@@ -23,6 +23,8 @@
     "react": "18.2.0",
     "react-confirm": "^0.3.0-2",
     "react-dom": "18.2.0",
+    "react-icons": "^4.9.0",
+    "react-shimmer": "^3.2.0",
     "react-sortablejs": "^6.1.4",
     "react-spinners": "^0.13.8",
     "sortablejs": "^1.15.0",

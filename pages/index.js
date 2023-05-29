@@ -1,4 +1,6 @@
 import Layout from "@/components/Layout";
+import Navbar from "@/components/Navbar";
+import UserProfile from "@/components/userProfile";
 import {useSession} from "next-auth/react";
 
 
@@ -9,16 +11,9 @@ export default function Home() {
    
     <div className="text-blue-900 flex ">
       <div className="w-3/4">
-      <h1>Navbar</h1>
+     <Navbar/>
       </div>
-    
-      
-      <div className="flex bg-gray-300 gap-1 text-black rounded-lg overflow-hidden ml-2 w-1/3">
-        <img src={session?.user?.image} alt="profile Image" className="w-6 h-6"/>
-        <span className="px-2">
-          {session?.user?.name}
-        </span>
-      </div>
+      <UserProfile/>
 
     </div>
     <h2 className="mt-5 ml-4 text-3xl">
