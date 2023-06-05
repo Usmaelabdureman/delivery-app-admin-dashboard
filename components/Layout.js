@@ -10,25 +10,27 @@ export default function Layout({ children }) {
   if (!session) {
     return (
       <div className="bg-slate-800 min-h-screen flex items-center justify-center">
-        <div className="text-center">
-
-          <h1 className="text-3xl font-bold text-white mb-4">
-            Welcome to Delivery App Admin Dashboard
-          </h1>
-          <h2 className="text-xl m-3 ml-3 text-teal-500">
-            Please login to Access the dashboard
-          </h2>
-          <div className="flex items-center ml-4">
-            <button
-              onClick={() => signIn("google")}
-              className="bg-teal-400 flex items-center text-gray-800 px-6 py-3 rounded-lg shadow-md hover:bg-gray-200 transition-colors duration-300"
-            >
-              <FcGoogle className="mt-1 text-2xl" />{" "}
-              <span className="ml-3">Sign In with Google</span>
-            </button>
-          </div>
+      <div className="grid grid-rows-3  gap-4  justify-center items-center">
+        <div className="row-span-3 ">          
+        <h1 className="text-3xl font-bold text-white mb-4">Welcome to Delivery App Admin Dashboard</h1>
         </div>
+        <div className="row-span-2 "> 
+        <h2 className="text-xl m-3 ml-3 text-teal-500">Please login to Access the dashboard!</h2>
+        </div>
+        <div className="row-span-2 ">        
+        <div className="flex items-center ml-6">
+          <button
+            onClick={() => signIn("google")}
+            className="bg-teal-400 flex items-center text-gray-800 px-6 py-3 rounded-lg shadow-md hover:bg-gray-200 transition-colors duration-300"
+          >
+            <FcGoogle className="mt-1 text-2xl" /> 
+            <span className="ml-3">Sign In with Google</span>
+          </button>
+        </div></div>
       </div>
+      <div className="text-center">
+      </div>
+    </div>
     );
   }
 
