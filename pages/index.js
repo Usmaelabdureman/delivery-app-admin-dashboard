@@ -4,7 +4,24 @@ import Navbar from "@/components/Navbar";
 import Stats from "@/components/Stats";
 import UserProfile from "@/components/userProfile";
 import { useSession } from "next-auth/react";
-
+const data = [
+  {
+    icon: "icon",
+    desc: "desc",
+  },
+  {
+    icon: "icon",
+    desc: "desc1",
+  },
+  {
+    icon: "icon",
+    desc: "desc2",
+  },
+  {
+    icon: "icon",
+    desc: "desc3",
+  },
+];
 export default function Home() {
   const { data: session } = useSession();
   return (
