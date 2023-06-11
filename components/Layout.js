@@ -28,8 +28,7 @@ export default function Layout({ children }) {
           </button>
         </div></div>
       </div>
-      <div className="text-center">
-      </div>
+      <div className="text-center" />
     </div>
     );
   }
