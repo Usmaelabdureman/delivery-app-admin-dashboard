@@ -52,20 +52,20 @@ function Categories() {
     );
   }
 
-  function deleteCategory(category){
-    // confirm({
-    // title: 'Are you sure?',
-    // message: `Do you want to delete ${category.name}?`,
-    // confirmButton: 'Yes, Delete!',
-    // cancelButton: 'Cancel'
-    // }).then(async result => {
-    // if (result) {
-    // const {_id} = category;
-    // await axios.delete('/api/categories?_id='+_id);
-    // fetchCategories();
-    // }
-    // });
-    }
+  // function deleteCategory(category){
+  //   confirm({
+  //   title: 'Are you sure?',
+  //   message: `Do you want to delete ${category.name}?`,
+  //   confirmButton: 'Yes, Delete!',
+  //   cancelButton: 'Cancel'
+  //   }).then(async result => {
+  //   if (result) {
+  //   const {_id} = category;
+  //   await axios.delete('/api/categories?_id='+_id);
+  //   fetchCategories();
+  //   }
+  //   });
+  //   }
   
 
   function addProperty() {
@@ -73,7 +73,7 @@ function Categories() {
       return [...prev, {name:'',values:''}];
     });
   }
-  function handlePropertyNameChange(index,property,newName) {
+  function handlePropertyNameChange(index,_property,newName) {
     setProperties(prev => {
       const properties = [...prev];
       properties[index].name = newName;
@@ -138,7 +138,7 @@ function Categories() {
                      onChange={ev =>
                        handlePropertyValuesChange(
                          index,
-                         property,ev.target.value
+                         property, ev.target.value
                        )}
                      value={property.values}
                      placeholder="values, comma separated"/>
@@ -190,9 +190,10 @@ function Categories() {
                 >
                   Edit
                 </button>
-                <button
+                {/* <button
                   onClick={() => deleteCategory(category)}
-                  className="btn-red">Delete</button>
+                  className="btn-red">Delete</button> */}
+                  <span>Delete</span>
               </td>
             </tr>
           ))}
