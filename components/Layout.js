@@ -2,7 +2,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import Nav from "@/components/Nav";
 import { useState } from "react";
 import Logo from "@/components/Logo";
-// import { FcGoogle } from "react-icons/fc";
+import { FcGoogle } from "react-icons/fc";
 
 export default function Layout({ children }) {
   const [showNav, setShowNav] = useState(false);
@@ -19,13 +19,13 @@ export default function Layout({ children }) {
         </div>
         <div className="row-span-2 ">        
         <div className="flex items-center ml-6">
-          {/* <button
+          <button
             onClick={() => signIn("google")}
             className="bg-teal-400 flex items-center text-gray-800 px-6 py-3 rounded-lg shadow-md hover:bg-gray-200 transition-colors duration-300"
           >
             <FcGoogle className="mt-1 text-2xl" /> 
             <span className="ml-3">Sign In with Google</span>
-          </button> */}
+          </button>
         </div></div>
       </div>
       <div className="text-center" />

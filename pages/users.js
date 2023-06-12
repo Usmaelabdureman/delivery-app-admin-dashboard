@@ -33,9 +33,9 @@ function Users() {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {users?.map((user) => (
             <tr key={user._id}>
-              <td className="border px-4 py-2">{user.firstName}</td>
+              <td className="border px-4 py-2">{user.name}</td>
               <td className="border px-4 py-2">{user.email}</td>
               {/* Display additional user data in table cells */}
             </tr>
