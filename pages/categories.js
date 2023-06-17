@@ -1,15 +1,15 @@
 import Layout from "@/components/Layout";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import Swal from 'sweetalert2'
 
-// import Confirm from 'react-confirm'
 function Categories() {
   const [editedCategory, setEditedCategory] = useState(null);
   const [name,setName] = useState('');
   const [parentCategory,setParentCategory] = useState('');
   const [categories,setCategories] = useState([]);
   const [properties,setProperties] = useState([]);
-  // const confirm = Confirm({});
+
   useEffect(() => {
     fetchCategories();
   }, [])
@@ -51,22 +51,28 @@ function Categories() {
     }))
     );
   }
-
-  // function deleteCategory(category){
-  //   confirm({
-  //   title: 'Are you sure?',
-  //   message: `Do you want to delete ${category.name}?`,
-  //   confirmButton: 'Yes, Delete!',
-  //   cancelButton: 'Cancel'
-  //   }).then(async result => {
-  //   if (result) {
-  //   const {_id} = category;
-  //   await axios.delete('/api/categories?_id='+_id);
-  //   fetchCategories();
-  //   }
-  //   });
-  //   }
-  
+  function deleteCategory(category){
+  Swal.fire({
+    title: 'Are you sure you want delete it? ',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then( async (result) => {
+    if (result) {
+      const {_id} = category;
+      await axios.delete('/api/categories?_id='+_id);
+      fetchCategories();
+      Swal.fire(
+       
+        'Deleted!',
+        'Your file has been deleted.',
+        'success'
+      )
+    }
+  })}
 
   function addProperty() {
     setProperties(prev => {
@@ -190,10 +196,10 @@ function Categories() {
                 >
                   Edit
                 </button>
-                {/* <button
+                <button
                   onClick={() => deleteCategory(category)}
-                  className="btn-red">Delete</button> */}
-                  <span>Delete</span>
+                  className="btn-red">Delete</button>
+              
               </td>
             </tr>
           ))}

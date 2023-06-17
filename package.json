@@ -29,7 +29,9 @@
     "react-shimmer": "^3.2.0",
     "react-sortablejs": "^6.1.4",
     "react-spinners": "^0.13.8",
+    "recharts": "^2.7.1",
     "sortablejs": "^1.15.0",
+    "sweetalert2": "^11.7.12",
     "typeorm": "^0.3.16"
   },
   "devDependencies": {
