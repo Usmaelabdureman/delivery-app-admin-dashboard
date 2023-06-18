@@ -46,44 +46,82 @@
 //   api: {bodyParser: false},
 // };
 
+// import multiparty from 'multiparty';
+// import { BlobServiceClient } from '@azure/storage-blob';
+// import fs from 'fs';
+// import mime from 'mime-types'; 
+// import {mongooseConnect} from "@/lib/mongoose";
+// import {isAdminRequest} from "@/pages/api/auth/[...nextauth]";
+
+// const containerName = 'deliveryappimagecontainer';
+
+// export default async function handle(req,res) {
+//   await mongooseConnect();  
+//   await isAdminRequest(req,res);
+
+//   const form = new multiparty.Form();  
+//   const {fields,files} = await new Promise((resolve,reject) => {
+//     form.parse(req, (err, fields, files) => {
+//       if (err) reject(err);
+//       resolve({fields,files});
+//     });
+//   });
+
+//   const blobServiceClient = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING);
+//   const containerClient = blobServiceClient.getContainerClient(containerName);
+
+//   const links = [];  
+//   for (const file of files.file) {
+//     const ext = file.originalFilename.split('.').pop();
+//     const blobName = `${Date.now()}.${ext}`;
+//     const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+//     const data = fs.readFileSync(file.path);
+//     const contentType = mime.lookup(file.path);
+//     await blockBlobClient.upload(data, data.length, { blobHTTPHeaders: { blobContentType: contentType } });
+//     const link = `https://${process.env.AZURE_STORAGE_ACCOUNT}.blob.core.windows.net/${containerName}/${blobName}`;
+//     links.push(link);
+//   }
+//   return res.json({links});
+// }
+
+// export const config = {
+//   api: {bodyParser: false},
+// };
+
+// this uses cloudinary
 import multiparty from 'multiparty';
-import { BlobServiceClient } from '@azure/storage-blob';
-import fs from 'fs';
-import mime from 'mime-types'; 
-import {mongooseConnect} from "@/lib/mongoose";
-import {isAdminRequest} from "@/pages/api/auth/[...nextauth]";
+import cloudinary from 'cloudinary';
+import { mongooseConnect } from '@/lib/mongoose';
+import { isAdminRequest } from '@/pages/api/auth/[...nextauth]';
 
-const containerName = 'deliveryappimagecontainer';
+export default async function handle(req, res) {
+  await mongooseConnect();
+  await isAdminRequest(req, res);
 
-export default async function handle(req,res) {
-  await mongooseConnect();  
-  await isAdminRequest(req,res);
-
-  const form = new multiparty.Form();  
-  const {fields,files} = await new Promise((resolve,reject) => {
+  const form = new multiparty.Form();
+  const { fields, files } = await new Promise((resolve, reject) => {
     form.parse(req, (err, fields, files) => {
       if (err) reject(err);
-      resolve({fields,files});
+      resolve({ fields, files });
     });
   });
 
-  const blobServiceClient = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING);
-  const containerClient = blobServiceClient.getContainerClient(containerName);
+  cloudinary.v2.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
 
-  const links = [];  
+  const links = [];
   for (const file of files.file) {
-    const ext = file.originalFilename.split('.').pop();
-    const blobName = `${Date.now()}.${ext}`;
-    const blockBlobClient = containerClient.getBlockBlobClient(blobName);
-    const data = fs.readFileSync(file.path);
-    const contentType = mime.lookup(file.path);
-    await blockBlobClient.upload(data, data.length, { blobHTTPHeaders: { blobContentType: contentType } });
-    const link = `https://${process.env.AZURE_STORAGE_ACCOUNT}.blob.core.windows.net/${containerName}/${blobName}`;
+    const result = await cloudinary.v2.uploader.upload(file.path);
+    const link = result.secure_url;
     links.push(link);
   }
-  return res.json({links});
+
+  return res.json({ links });
 }
 
 export const config = {
-  api: {bodyParser: false},
+  api: { bodyParser: false },
 };
