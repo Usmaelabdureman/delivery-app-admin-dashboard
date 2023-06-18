@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSession, signIn, signOut } from "next-auth/react"
+import Image from 'next/image';
 const UserProfile = () => {
     const {data: session} = useSession();
   const [isEditing, setIsEditing] = useState(false);
@@ -9,8 +10,16 @@ const UserProfile = () => {
     setIsEditing(true);
   };
 
-  const handleSave = () => {
+  const handleSave = async() => {
+
     // Perform save operation or update the user name in the backend
+    await fetch('/api/users', {
+      method: 'POST',
+      body: JSON.stringify({name: userName}),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
 
     // Assuming the save operation is successful, exit editing mode
     setIsEditing(false);
@@ -22,7 +31,7 @@ const UserProfile = () => {
 
   return (
     <div className="flex bg-gray-300 gap-1 text-black  rounded-lg overflow-hidden ml-2 w-1/3">
-      <img src={session?.user?.image} alt="profile Image" className="w-12 rounded-full h-12" />
+      <Image src={session?.user?.image} alt="profile Image" className="w-12 rounded-full h-12" width={200} height={200}/>
       {isEditing ? (
         <input type="text" value={userName} onChange={handleChange} className="px-2" />
       ) : (
