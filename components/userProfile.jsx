@@ -14,7 +14,7 @@ const UserProfile = () => {
 
     // Perform save operation or update the user name in the backend
     await fetch('/api/users', {
-      method: 'POST',
+      method: 'PUT',
       body: JSON.stringify({name: userName}),
       headers: {
         'Content-Type': 'application/json'
