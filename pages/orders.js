@@ -12,28 +12,37 @@ export default function OrdersPage() {
       setOrders(response.data);
     });
   }
-  function deleteOrder(order){
+  function deleteOrder(orderId) {
     Swal.fire({
-      title: 'Are you sure you want delete it? ',
+      title: 'Are you sure you want to delete order?',
       text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
-    }).then( async (result) => {
-      if (result) {
-        const {_id} = order;
-        await axios.delete('/api/orders?='+_id);
-        fetchOrders();
-        Swal.fire(
-         
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
+    }).then(async (result) => {
+      if (result.isConfirmed) {  // Check if the user confirmed the deletion
+        try {
+          const {_id} = orderId;
+          await axios.delete('/api/orders?_id' + _id);  // Use the correct API endpoint with the order ID
+          // fetchOrders();
+          Swal.fire(
+            'Deleted!',
+            'Your order has been deleted.',
+            'success'
+          )
+        } catch (error) {
+          Swal.fire(
+            'Error!',
+            'An error occurred while deleting the order.',
+            'error'
+          );
+        }
       }
-    })}
+    });
+  }
+  
   
   if (orders.length === 0) {
     return (

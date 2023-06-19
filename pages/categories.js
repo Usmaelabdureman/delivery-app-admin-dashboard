@@ -9,7 +9,10 @@ function Categories() {
   const [parentCategory,setParentCategory] = useState('');
   const [categories,setCategories] = useState([]);
   const [properties,setProperties] = useState([]);
-
+  const [search,setSearch] = useState('');
+const handleSearch =(ev)=>{
+  setSearch(ev.target.value);
+}
   useEffect(() => {
     fetchCategories();
   }, [])
@@ -51,6 +54,7 @@ function Categories() {
     }))
     );
   }
+  
   function deleteCategory(category){
   Swal.fire({
     title: 'Are you sure you want delete it? ',
@@ -102,7 +106,19 @@ function Categories() {
   }
   return (
     <Layout>
-      <h1>Categories</h1>
+      <div className="grid grid-cols-4 gap-3 mr-4">
+      <h1 className="">Categories</h1>
+      <span className="col-span-3 mr-6" >
+          <input type="search" 
+          placeholder="Search by category name"
+          onChange={handleSearch}
+          value={search}
+          className="border border-gray-500 rounded-md py-1 px-2 col-span-3"
+          
+          />
+          
+        </span>
+      </div>
       <label>
         {editedCategory
           ? `Edit category ${editedCategory.name}`
@@ -185,7 +201,13 @@ function Categories() {
           </tr>
           </thead>
           <tbody>
-          {categories.length > 0 && categories.map(category => (
+          {categories.filter(category => {
+            if (search === '') {
+              return category;
+            } else if (category.name.toLowerCase().includes(search.toLowerCase())) {
+              return category;
+            }
+          }).map(category => (
             <tr key={category._id}>
               <td>{category.name}</td>
               <td>{category?.parent?.name}</td>
@@ -199,7 +221,7 @@ function Categories() {
                 <button
                   onClick={() => deleteCategory(category)}
                   className="btn-red">Delete</button>
-              
+
               </td>
             </tr>
           ))}
@@ -210,7 +232,4 @@ function Categories() {
   );
 }
 
-// export default withSwal(({swal}, ref) => (
-//   <Categories swal={swal} />
-// ));
 export default Categories;

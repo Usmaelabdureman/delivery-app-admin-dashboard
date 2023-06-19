@@ -2,7 +2,7 @@ import Layout from "@/components/Layout";
 import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import axios from "axios";
-
+import Swal from 'sweetalert2'
 export default function DeleteProductPage() {
   const router = useRouter();
   const [productInfo,setProductInfo] = useState();
@@ -30,13 +30,15 @@ export default function DeleteProductPage() {
       <div className="flex gap-2 justify-center">
         <button
           onClick={deleteProduct}
-          className="btn-red">Yes</button>
+          className="btn-red">Delete
+          </button>
         <button
           className="btn-default"
           onClick={goBack}>
           NO
-        </button>
+        </button> 
       </div>
+      <span>{deleteProduct}</span>
     </Layout>
   );
 }
