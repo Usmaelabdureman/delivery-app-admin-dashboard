@@ -16,6 +16,9 @@ export default function Layout({ children }) {
         </div>
         <div className="row-span-2 "> 
         <h2 className="text-xl m-3 ml-3 text-teal-500">Please login to Access the dashboard!</h2>
+        <div className="border border-solid via-orange-300">
+        <h2 className="text-xl m-3 ml-3 text-teal-500 ">Only Authorized Admin can Access this page!</h2>
+        </div>
         </div>
         <div className="row-span-2 ">        
         <div className="flex items-center ml-6">
